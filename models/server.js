@@ -10,6 +10,7 @@ class Server {
       auth: '/api/auth',
       courses: '/api/courses',
       enrollment: '/api/enrollment',
+      persons: '/api/persons',
       buscar: '/api/buscar',
     }
 
@@ -35,6 +36,7 @@ class Server {
 
   routes() {
     this.app.use( this.paths.auth, require('../routes/auth'));
+    this.app.use( this.paths.persons, require('../routes/persons'));
   }
 
   listen() {

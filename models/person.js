@@ -6,7 +6,8 @@ const PersonSchema = Schema({
     required: true,
   },
   role: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: 'Role',
     required: true,
     enum: ['STUDENT_ROLE', 'PROFESSOR_ROLE', 'ADMIN_ROLE'],
   },
@@ -23,7 +24,7 @@ const PersonSchema = Schema({
 
 PersonSchema.methods.toJSON = function() {
   const {__v, password, _id, ...resto } = this.toObject();
-  resto.id = _id;
+  resto.uid = _id;
   return resto;
 }
 
