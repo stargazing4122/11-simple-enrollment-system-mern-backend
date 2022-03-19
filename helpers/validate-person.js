@@ -39,9 +39,19 @@ const existeCursoPorNombre = async( courseName ) => {
   }
 }
 
+// * ENROLLMENT 
+const existeCoursePorId = async( courseId ) => {
+  const course = await Course.findById( courseId );
+
+  if( !course ) {
+    throw new Error('Este curso no existe');
+  }
+}
+
 module.exports = {
   existeRolPorId,
   existeEmail,
   existeProfesorPorId,
-  existeCursoPorNombre
+  existeCursoPorNombre,
+  existeCoursePorId,
 }
