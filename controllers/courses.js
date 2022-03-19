@@ -26,10 +26,35 @@ const getCourses = async( req = request, res = response ) => {
     })
   }
 
+}
 
+const agregarCurso = async( req = request, res = response ) => {
+
+  const { name, professor } = req.body;
+  const data = {
+    name: name.toUpperCase(),
+    professor,
+  }
+
+  try {
+    const course = new Course(data);
+    await course.save();
+  
+    res.status(200).json({
+      msg: 'curso agregado',
+      course,
+    })
+    
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({
+      msg: 'ha ocurrido un error al crear el curso'
+    })
+  }
 
 }
 
 module.exports = {
   getCourses,
+  agregarCurso,
 }
