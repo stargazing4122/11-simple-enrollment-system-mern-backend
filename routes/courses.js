@@ -8,7 +8,7 @@ const router = Router();
 
 router.get('/', [
   validarJWT,
-  tieneRole('ADMIN_ROLE'),
+  tieneRole('ADMIN_ROLE', 'STUDENT_ROLE'),
 ], getCourses);
 
 router.post('/', [
