@@ -3,14 +3,14 @@ const { check } = require('express-validator');
 
 const { registerPerson, getPeople } = require('../controllers/persons');
 const { existeRolPorId, existeEmail } = require('../helpers/validate-person');
-const { validarCampos, validarJWT } = require('../middlewares');
+const { validarCampos, validarJWT, tieneRole } = require('../middlewares');
 
 
 const router = Router();
 
 router.post('/', [
   validarJWT,
-  // isAdminRole,
+  tieneRole('ADMIN_ROLE'),
   check('name', 'El nombre es obligatorio').notEmpty(),
   check('role', 'No es un id de mongo').isMongoId(),
   check('role').custom( existeRolPorId ),

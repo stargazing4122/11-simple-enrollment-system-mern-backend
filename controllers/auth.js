@@ -14,7 +14,7 @@ const login = async( req = request, res = response ) => {
   try {
 
     // verificar por el correo la persona existe
-    const person = await Person.findOne({ email });
+    const person = await Person.findOne({ email }).populate('role');
     if( !person ) {
       return res.status(401).json({
         msg: 'Usuario no existe en base de datos',

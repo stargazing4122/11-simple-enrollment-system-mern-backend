@@ -9,7 +9,6 @@ const PersonSchema = Schema({
     type: Schema.Types.ObjectId,
     ref: 'Role',
     required: true,
-    enum: ['STUDENT_ROLE', 'PROFESSOR_ROLE', 'ADMIN_ROLE'],
   },
   email: {
     type: String,
