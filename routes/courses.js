@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { getCourses, agregarCurso, getCoursesStudentNoEnrollment, getCoursesStudentEnrollment } = require('../controllers/courses');
+const { getCourses, agregarCurso, getCoursesStudentNoEnrollment, getCoursesStudentEnrollment, getCoursesByProfessor } = require('../controllers/courses');
 const { existeProfesorPorId, existeCursoPorNombre, existeAlumnoPorId } = require('../helpers/validate-person');
 const {validarJWT, tieneRole, validarCampos} = require('../middlewares');
 
@@ -28,6 +28,15 @@ router.get('/enrollment/:studentId', [
   check('studentId').custom( existeAlumnoPorId ),
   validarCampos,
 ], getCoursesStudentEnrollment );
+
+router.get('/professor/:professorId', [
+  validarJWT,
+  tieneRole('ADMIN_ROLE', 'PROFESSOR_ROLE'),
+  check('professorId', 'No es un id de Mongo').isMongoId(),
+  validarCampos,
+  check('professorId').custom( existeProfesorPorId ),
+  validarCampos,
+], getCoursesByProfessor );
 
 router.post('/', [
   validarJWT,

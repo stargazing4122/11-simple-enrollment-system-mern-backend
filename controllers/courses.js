@@ -130,9 +130,34 @@ const getCoursesStudentEnrollment = async( req = request, res = response ) => {
 
 }
 
+
+const getCoursesByProfessor = async( req = request, res = response ) => {
+
+  const { professorId } = req.params;
+
+  try {
+
+    const cursos = await Course.find({ professor: ObjectId(professorId)});
+
+
+    res.status(200).json({
+      msg: 'cursos por profesor ok!',
+      cursos,
+    })
+    
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      msg: 'Error de servidor al traer cursos de este maestro',
+    })
+  }
+
+}
+
 module.exports = {
   getCourses,
   agregarCurso,
   getCoursesStudentNoEnrollment,
   getCoursesStudentEnrollment,
+  getCoursesByProfessor,
 }
