@@ -32,6 +32,17 @@ const existeProfesorPorId = async( professorId ) => {
   }
 }
 
+const existeAlumnoPorId = async( studentId ) => {
+  const student = await Person.findById( studentId ).populate('role', 'name');
+  if( !student ) {
+    throw new Error('Este usuario no existe');
+  } else {
+    if( student.role.name !== 'STUDENT_ROLE') {
+      throw new Error('Este usuario no es un estudiante')
+    }
+  }
+}
+
 const existeCursoPorNombre = async( courseName ) => {
   const curso = await Course.findOne({name: courseName.toUpperCase(), });
   if( curso ) {
@@ -54,4 +65,5 @@ module.exports = {
   existeProfesorPorId,
   existeCursoPorNombre,
   existeCoursePorId,
+  existeAlumnoPorId,
 }
