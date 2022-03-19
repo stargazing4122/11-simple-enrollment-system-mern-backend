@@ -117,7 +117,7 @@ const getCoursesStudentEnrollment = async( req = request, res = response ) => {
       coursesEnrollmetArray.includes(course.name)
     ));
 
-    res.status(400).json({
+    res.status(200).json({
       msg: 'cursos matriculados',
       enrollmentCourses,
     })
@@ -127,10 +127,6 @@ const getCoursesStudentEnrollment = async( req = request, res = response ) => {
       msg: 'Error de servidor al traer los cursos matriculados'
     })
   }
-
-  res.status(200).json({
-    msg: 'cursos matriculados',
-  })
 
 }
 
