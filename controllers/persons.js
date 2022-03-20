@@ -1,7 +1,7 @@
 const bcryptjs = require('bcryptjs');
 const { request, response } = require("express");
-const { path } = require('express/lib/application');
-const { Person } = require('../models');
+const { Person, Enrollment } = require('../models');
+const { ObjectId}  = require('mongoose').Types;
 
 const registerPerson = async( req = request, res = response ) => {
 
@@ -60,10 +60,36 @@ const getPeople = async( req = request, res = response ) => {
     })
   }
 
+}
+
+const getEstudiantesPorCurso = async( req = request, res = response ) => {
+
+  const { courseId} = req.params;
+
+  try {
+    const alumnos = await Enrollment.find({ course: ObjectId(courseId) })
+                                        .populate({ 
+                                          path:'student', 
+                                          select: ['_id', 'name', 'email']
+                                        });
+
+    res.status(200).json({
+      msg: 'matriculados por curso',
+      alumnos,
+    })
+
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({
+      msg: 'Error del servidor',
+    })
+  }
+
 
 }
 
 module.exports = {
   registerPerson,
   getPeople,
+  getEstudiantesPorCurso,
 }

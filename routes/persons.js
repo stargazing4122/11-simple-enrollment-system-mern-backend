@@ -1,12 +1,24 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 
-const { registerPerson, getPeople } = require('../controllers/persons');
-const { existeRolPorId, existeEmail } = require('../helpers/validate-person');
-const { validarCampos, validarJWT, tieneRole } = require('../middlewares');
+const { registerPerson, getPeople, getEstudiantesPorCurso } = require('../controllers/persons');
+const { existeRolPorId, existeEmail, existeCoursePorId } = require('../helpers/validate-person');
+const { validarCampos, validarJWT, tieneRole, esElProfesor } = require('../middlewares');
 
 
 const router = Router();
+
+router.get('/', getPeople );
+
+router.get('/courses/:courseId', [
+  validarJWT,
+  tieneRole('ADMIN_ROLE', 'PROFESSOR_ROLE'),
+  check('courseId', 'este no es un id de mongo').isMongoId(),
+  validarCampos,
+  check('courseId').custom( existeCoursePorId ),
+  validarCampos,
+  esElProfesor,
+], getEstudiantesPorCurso )
 
 router.post('/', [
   validarJWT,
@@ -20,6 +32,5 @@ router.post('/', [
   validarCampos,
 ], registerPerson );
 
-router.get('/', getPeople );
 
 module.exports = router;
