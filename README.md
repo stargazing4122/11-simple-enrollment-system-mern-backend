@@ -1,5 +1,7 @@
 # Backend para Simple Enrollment System - Practica MERN
 
+  [Documentación de API](https://documenter.getpostman.com/view/20101707/UVsPQR1Z)
+
 ## Variables de entorno
 
   Configurar las siguientes variables de entorno para la ejecución del proyecto.
