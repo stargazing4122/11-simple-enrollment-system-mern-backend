@@ -8,7 +8,10 @@ const { validarCampos, validarJWT, tieneRole, esElProfesor } = require('../middl
 
 const router = Router();
 
-router.get('/', getPeople );
+router.get('/', [
+  validarJWT,
+  tieneRole('ADMIN_ROLE'),
+], getPeople );
 
 router.get('/courses/:courseId', [
   validarJWT,
