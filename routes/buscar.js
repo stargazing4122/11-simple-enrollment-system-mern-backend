@@ -4,7 +4,7 @@ const validarCampos = require('../middlewares/validar-campos');
 
 const router = Router();
 
-router.post('/:coleccion/:campo', [
+router.post('/:coleccion/:termino', [
   validarCampos,
 ], login);
 

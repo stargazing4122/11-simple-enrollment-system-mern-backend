@@ -1,12 +1,18 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 
-const { crearMatricula } = require('../controllers/enrollment');
+const { crearMatricula, getAllEnrollments } = require('../controllers/enrollment');
 const { existeCoursePorId } = require('../helpers/validate-person');
 const { validarJWT, tieneRole, alumnoNoInscritoEnCurso, validarCampos } = require('../middlewares');
 
 
 const router = Router();
+
+router.get('/', [
+  validarJWT,
+  tieneRole('ADMIN_ROLE'),
+],
+getAllEnrollments );
 
 router.post('/', [
   validarJWT,

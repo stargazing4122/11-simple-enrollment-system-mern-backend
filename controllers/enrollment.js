@@ -25,6 +25,27 @@ const crearMatricula = async( req = request, res = response ) => {
   }
 }
 
+const getAllEnrollments = async( req = request, res = response ) => {
+
+  try {
+    const matriculas = await Enrollment.find()
+                                .populate('student', 'name')
+                                .populate('course', 'name');
+    
+    res.status(200).json({
+      msg: 'All enrollments ok!',
+      matriculas,
+    })
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      msg: 'error de servidor al traer matriculas'
+    })
+  }
+
+}
+
 module.exports = {
   crearMatricula,
+  getAllEnrollments,
 }
