@@ -20,13 +20,15 @@ const registerPerson = async( req = request, res = response ) => {
     const person = new Person( data );
     await person.save();
 
-    return res.json({
+    return res.status(201).json({
+      ok: true,
       msg: 'persona registrada',
       person,
     })
     
   } catch (err) {
     return res.status(500).json({
+      ok: false,
       msg: 'Error de servidor al crear el usuario'
     })
   }
@@ -48,7 +50,8 @@ const getPeople = async( req = request, res = response ) => {
     ]);
 
     res.status(200).json({
-      msg: 'get people ok',
+      ok: true,
+      msg: 'get people',
       total,
       people,
     });
@@ -56,6 +59,7 @@ const getPeople = async( req = request, res = response ) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
+      ok: false,
       msg: 'Error de servidor al traer people'
     })
   }
@@ -74,6 +78,7 @@ const getEstudiantesPorCurso = async( req = request, res = response ) => {
                                         });
 
     res.status(200).json({
+      ok: true,
       msg: 'matriculados por curso',
       alumnos,
     })
@@ -81,6 +86,7 @@ const getEstudiantesPorCurso = async( req = request, res = response ) => {
   } catch (err) {
     console.log(err)
     res.status(500).json({
+      ok: false,
       msg: 'Error del servidor',
     })
   }

@@ -16,6 +16,7 @@ const alumnoNoInscritoEnCurso = async( req = request, res = response, next ) => 
 
   if( existeEnrollment ) {
     return res.status(400).json({
+      ok: false,
       msg: 'Estuadiante ya matriculado en este curso',
     })
   }

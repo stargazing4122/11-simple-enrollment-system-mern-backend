@@ -15,6 +15,7 @@ const esElProfesor = async(req = request, res = response, next ) => {
     console.log({course})
     if( !course ) {
       return res.status(401).json({
+        ok: false,
         msg: 'Este curso no es de este docente',
       })
     }

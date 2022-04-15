@@ -16,6 +16,7 @@ const getCourses = async( req = request, res = response ) => {
     ]);
 
     res.status(200).json({
+      ok: true,
       msg: 'get courses ok',
       total,
       courses,
@@ -24,6 +25,7 @@ const getCourses = async( req = request, res = response ) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
+      ok: false,
       msg: 'Error de servidor - no se pudo obtener los cursos.'
     })
   }
@@ -43,6 +45,7 @@ const agregarCurso = async( req = request, res = response ) => {
     await course.save();
   
     res.status(200).json({
+      ok: true,
       msg: 'curso agregado',
       course,
     })
@@ -50,6 +53,7 @@ const agregarCurso = async( req = request, res = response ) => {
   } catch (err) {
     console.log(err)
     res.status(500).json({
+      ok: false,
       msg: 'ha ocurrido un error al crear el curso'
     })
   }
@@ -81,6 +85,7 @@ const getCoursesStudentNoEnrollment = async( req = request, res = response ) => 
     ));
   
     return res.status(200).json({
+      ok: true,
       msg: 'Cursos disponibles para este alumno',
       notEnrollmentCourses,
     })
@@ -88,6 +93,7 @@ const getCoursesStudentNoEnrollment = async( req = request, res = response ) => 
   } catch (err) {
     console.log(err)
     return res.status(500).json({
+      ok: false,
       msg: 'error en el servidor al traer los cursos de este alumno'
     })
   }
@@ -118,12 +124,14 @@ const getCoursesStudentEnrollment = async( req = request, res = response ) => {
     ));
 
     res.status(200).json({
+      ok: true,
       msg: 'cursos matriculados',
       enrollmentCourses,
     })
   } catch (err) {
     console.log(err)
     res.status(500).json({
+      ok: false,
       msg: 'Error de servidor al traer los cursos matriculados'
     })
   }
@@ -141,13 +149,15 @@ const getCoursesByProfessor = async( req = request, res = response ) => {
 
 
     res.status(200).json({
-      msg: 'cursos por profesor ok!',
+      ok: true,
+      msg: 'cursos por profesor',
       cursos,
     })
     
   } catch (err) {
     console.log(err);
     res.status(500).json({
+      ok: false,
       msg: 'Error de servidor al traer cursos de este maestro',
     })
   }

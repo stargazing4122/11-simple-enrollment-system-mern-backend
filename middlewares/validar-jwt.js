@@ -8,6 +8,7 @@ const validarJWT = async( req = request, res = response, next ) => {
   const token = req.header('x-token');
   if( !token ) {
     return res.status(401).json({
+      ok: false,
       msg: 'No se envio un token de auth'
     })
   }
@@ -21,6 +22,7 @@ const validarJWT = async( req = request, res = response, next ) => {
     const person = await Person.findById( uid );
     if( !person ) {
       return res.status(401).json({
+        ok: false,
         msg: 'El usuario de este token no existe'
       })
     }
@@ -31,6 +33,7 @@ const validarJWT = async( req = request, res = response, next ) => {
     
   } catch (err) {
     return res.status(401).json({
+      ok: false,
       msg: 'Este token no es valido',
     })
   }

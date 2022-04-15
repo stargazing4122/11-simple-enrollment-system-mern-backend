@@ -7,6 +7,7 @@ const tieneRole = ( ...roles ) => {
     const { name } = await Role.findById( idRole );
     if( !roles.includes( name )) {
       return res.status(401).json({
+        ok: false,
         msg: `Rol sin permiso para realizar esta accion - disponible solo para ${ roles }`,
       })
     }

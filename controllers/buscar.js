@@ -12,12 +12,14 @@ const buscarPeople = async( termino='', res = request ) => {
     const people = await Person.find({ name: regExp }).populate('role', 'name');
 
     return res.status(200).json({
+      ok: true,
       msg: 'buscar en people',
       results: people,
     })
     
   } catch (err) {
     return res.status(500).json({
+      ok: false,
       msg: 'error de servidor al realizar la busqueda'
     })
   }
@@ -30,12 +32,14 @@ const buscarCourses = async( termino='', res = request ) => {
     const courses = await Course.find({ name: regExp }).populate('professor', 'name');
 
     return res.status(200).json({
+      ok: true,
       msg: 'buscar en courses',
       results: courses,
     })
     
   } catch (err) {
     return res.status(500).json({
+      ok: false,
       msg: 'error de servidor al realizar la busqueda'
     })
   }
@@ -47,6 +51,7 @@ const buscar = async( req = request, res = response ) => {
 
   if( !colecciones.includes(coleccion)) {
     return res.status(400).json({
+      ok: false,
       msg: 'coleccion no valida',
     })
   }
@@ -62,6 +67,7 @@ const buscar = async( req = request, res = response ) => {
   
     default:
       res.status(500).json({
+        ok: false,
         msg: 'error de servidor - busqueda por esta coleccion en desarrollo'
       })
       break;

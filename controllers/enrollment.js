@@ -13,6 +13,7 @@ const crearMatricula = async( req = request, res = response ) => {
     await enrollment.save();
 
     res.status(201).json({
+      ok: true,
       msg: 'matricula realizada',
       enrollment,
     })
@@ -20,6 +21,7 @@ const crearMatricula = async( req = request, res = response ) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
+      ok: false,
       msg: 'error en el servidor al crear la matricula'
     })
   }
@@ -33,12 +35,14 @@ const getAllEnrollments = async( req = request, res = response ) => {
                                 .populate('course', 'name');
     
     res.status(200).json({
-      msg: 'All enrollments ok!',
+      ok: true,
+      msg: 'All enrollments',
       matriculas,
     })
   } catch (err) {
     console.log(err);
     res.status(500).json({
+      ok: false,
       msg: 'error de servidor al traer matriculas'
     })
   }
