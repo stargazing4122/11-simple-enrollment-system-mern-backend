@@ -75,7 +75,8 @@ const getEstudiantesPorCurso = async( req = request, res = response ) => {
                                         .populate({ 
                                           path:'student', 
                                           select: ['_id', 'name', 'email']
-                                        });
+                                        })
+                                        .populate('course', 'name')
 
     res.status(200).json({
       ok: true,
