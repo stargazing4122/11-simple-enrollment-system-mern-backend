@@ -36,7 +36,7 @@ const registerPerson = async( req = request, res = response ) => {
 }
 
 const getPeople = async( req = request, res = response ) => {
-  const { limit=5, from=0} = req.query;
+  const { limit=500, from=0} = req.query;
 
   try {
     const [ total, people ] = await Promise.all([
